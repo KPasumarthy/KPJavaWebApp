@@ -1,0 +1,327 @@
+/*Heading Style*/
+h3{
+	font-family:'Roboto', sans-serif;
+}
+
+
+/* Column4
+-----------------------------------*/
+
+.Column4 .pricing-col{width: 25%;}
+.Column3 .pricing-col{width: 33.3%;}
+.Column2 .pricing-col{width: 50%; }
+.Column1 .pricing-col{width: 100%;}
+
+
+.pricing-col{
+	font-size: 16px;
+	font-weight: 300;
+	position: relative;
+}
+
+.pricing-col{
+	/*width:90%;
+
+
+
+ position:absolute;
+ left:40%;
+ top:50%;
+ margin-left:-250px;
+ margin-top:-250px;
+ */
+	
+/*	float: left;*/
+	margin-bottom: 20px;
+}
+
+
+
+.pricing-col ul{
+	margin:0 10px;
+	padding: 0;
+}
+
+.pricing-col ul li {
+	list-style: none;
+}
+
+.pricing-col ul li>ul{
+	margin: 0;
+}
+
+
+/* Column Title
+-----------------------------------*/
+.pricing-col ul li.title{
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	line-height: 40px;
+	letter-spacing: 1px;
+	border-radius:3px 3px 0 0;
+	-moz-border-radius:3px 3px 0 0;
+	-webkit-border-radius:3px 3px 0 0;
+}
+
+.pricing-col ul li.pricing-details{
+	text-align: center;
+	padding: 10px 0;
+	margin: 0 -5px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	box-shadow:0px 0px 5px rgba(0,0,0,.2);
+}
+
+.pricing-col ul li.pricing-details h3{
+	font-size: 100px;
+	font-weight: 500;
+}
+
+.pricing-col ul li.pricing-details sup{
+	font-size: 30px;
+}
+
+.pricing-col ul li.pricing-details sub{
+	position: relative;
+	font-size: 14px;
+	font-weight: normal;
+	bottom: 10px;
+}
+
+.pricing-col ul li.pricing-details small{
+	display: block;
+	text-transform:uppercase;
+}
+
+.pricing-col a.signup-btn{
+	display: inline-block;
+	margin: 10px 0;
+	padding: 5px 15px;
+	border:2px;
+	border-style: solid;
+	font-size: 14px;
+	font-weight: 400;
+	text-transform: uppercase;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	transition:All .5s ease-in-out;
+	-webkit-transition:All .5s ease-in-out;
+	-moz-transition:All .5s ease-in-out;
+	-o-transition:All .5s ease-in-out;
+
+}
+
+
+
+.pricing-col a:hover.signup-btn{
+	text-decoration: none;
+}
+
+.pricing-col li ul{
+	padding:15px;
+	border-radius:0 0 3px 3px;
+	-moz-border-radius:0 0 3px 3px;
+	-webkit-border-radius:0 0 3px 3px;
+}
+
+.pricing-col li li{
+	margin: 0;
+	padding:10px 0;
+	border-bottom: 1px dotted rgba(0,0,0,.1);
+}
+
+.pricing-col li li:last-child{
+	border-bottom: none;
+}
+
+
+.featured-red, .pricing-col {
+	transition:all .2s ease-in-out; 
+	-moz-transition:all .2s ease-in-out; 
+	-webkit-transition:all .2s ease-in-out; 
+	-o-transition:all .2s ease-in-out; 
+
+}
+.featured-red:hover, .pricing-col:hover{
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	z-index: 1;
+}
+
+
+
+/*--------------------------------------------------------------
+-----------------FEATURED COLOR-----------------------------------
+---------------------------------------------------------------*/
+
+
+/*--Red--*/
+
+.featured-red ul li.title, .featured-red  li ul{background:#C0392B !important; color: #fff !important;}
+.featured-red ul li.pricing-details{background:#E74C3C !important; color: #fff !important;}   
+.featured-orange  ul li.pricing-details small{color: rgba(255,255,255,.5) !important;}   
+.featured-red a.signup-btn{color:#fff !important; border-color: #fff !important}
+.featured-red a:hover.signup-btn{background: #fff !important; color:#E74C3C !important}
+
+
+
+/*--ORANGE--*/
+
+.featured-orange  ul li.title, .featured-orange li ul{background:#F39C12 !important; color: #fff !important;}
+.featured-orange  ul li.pricing-details{background:#F1C40F !important; color: #fff !important;}     
+.featured-orange  ul li.pricing-details small{color: rgba(255,255,255,.5) !important;}    
+.featured-orange  a.signup-btn{color:#fff !important; border-color: #fff !important}
+.featured-orange  a:hover.signup-btn{background: #fff !important; color:#F1C40F !important}
+
+
+/*--PUMPKIN--*/
+
+.featured-pumkin ul li.title, .featured-pumkin li ul{background:#D35400 !important; color: #fff !important;}
+.featured-pumkin ul li.pricing-details{background:#E67E22 !important; color: #fff !important;}   
+.featured-pumkin ul li.pricing-details small{color: rgba(255,255,255,.5) !important;}      
+.featured-pumkin a.signup-btn{color:#fff !important; border-color: #fff !important}
+.featured-pumkin a:hover.signup-btn{background: #fff !important; color:#E67E22 !important}
+
+
+/*--WISTERIA--*/
+
+.featured-whisteria  ul li.title, .featured-whisteria li ul{background:#8E44AD !important; color: #fff;}
+.featured-whisteria ul li.pricing-details{background:#9B59B6 !important; color: #fff !important;}   
+.featured-whisteria ul li.pricing-details small{color: rgba(255,255,255,.5) !important;}      
+.featured-whisteria a.signup-btn{color:#fff; border-color: #fff !important}
+.featured-whisteria a:hover.signup-btn{background: #fff !important; color:#9B59B6 !important}
+
+
+/*--------------------------------------------------------------
+-----------------COLOR STYLE-----------------------------------
+---------------------------------------------------------------*/
+
+
+/*--Green--*/
+
+.GreenSea .pricing-col ul li.title, .GreenSea .pricing-col li ul{background:#16A085; color: #fff;}
+.GreenSea .pricing-col ul li.pricing-details{background:#1ABC9C; color: #fff;} 
+.GreenSea .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);} 
+.GreenSea .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.GreenSea .pricing-col a:hover.signup-btn{background: #fff; color:#1ABC9C }
+
+
+/*--GreenBlue--*/
+
+.GreenBlue .pricing-col ul li.title, .GreenBlue .pricing-col li ul{background:#27AE60; color: #fff;}
+.GreenBlue .pricing-col ul li.pricing-details{background:#2ECC71; color: #fff;} 
+.GreenBlue .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}   
+.GreenBlue .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.GreenBlue .pricing-col a:hover.signup-btn{background: #fff; color:#2ECC71 }  
+
+
+/*--Blue--*/
+
+.Blue .pricing-col ul li.title, .Blue .pricing-col li ul{background:#2980B9; color: #fff;}
+.Blue .pricing-col ul li.pricing-details{background:#3498DB; color: #fff;}  
+.Blue .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}      
+.Blue .pricing-col a.signup-btn{color:#fff;  border-color: #fff}
+.Blue .pricing-col a:hover.signup-btn{background:#fff; color:#3498DB }
+
+
+/*--Red--*/
+
+.Red .pricing-col ul li.title, .Red .pricing-col li ul{background:#C0392B; color: #fff;}
+.Red .pricing-col ul li.pricing-details{background:#E74C3C; color: #fff;}   
+.Red .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}      
+.Red .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.Red .pricing-col a:hover.signup-btn{background: #fff; color:#E74C3C}
+
+
+/*--WISTERIA--*/
+
+.Whisteria .pricing-col ul li.title, .Whisteria .pricing-col li ul{background:#8E44AD; color: #fff;}
+.Whisteria .pricing-col ul li.pricing-details{background:#9B59B6; color: #fff;}   
+.Whisteria .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}      
+.Whisteria .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.Whisteria .pricing-col a:hover.signup-btn{background: #fff; color:#9B59B6}
+
+
+
+
+/*--MIDNIGHT BLUE--*/
+
+.MidnightBlue .pricing-col ul li.title, .MidnightBlue .pricing-col li ul{background:#2C3E50; color: #fff;}
+.MidnightBlue .pricing-col ul li.pricing-details{background:#34495E; color: #fff;}  
+.MidnightBlue .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}       
+.MidnightBlue .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.MidnightBlue .pricing-col a:hover.signup-btn{background: #fff; color:#34495E}
+
+
+
+/*--ORANGE--*/
+
+.Orange .pricing-col ul li.title, .Orange .pricing-col li ul{background:#F39C12; color: #fff;}
+.Orange .pricing-col ul li.pricing-details{background:#F1C40F; color: #fff;}     
+.Orange .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}    
+.Orange .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.Orange .pricing-col a:hover.signup-btn{background: #fff; color:#F1C40F}
+
+
+/*--PUMPKIN--*/
+
+.Pumkin .pricing-col ul li.title, .Pumkin .pricing-col li ul{background:#D35400; color: #fff;}
+.Pumkin .pricing-col ul li.pricing-details{background:#E67E22; color: #fff;}   
+.Pumkin .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}      
+.Pumkin .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.Pumkin .pricing-col a:hover.signup-btn{background: #fff; color:#E67E22}
+
+
+/*--SILVER--*/
+
+.Silver .pricing-col ul li.title, .Silver .pricing-col li ul{background:#BDC3C7; color: #fff;}
+.Silver .pricing-col ul li.pricing-details{background:#ECF0F1; color: #34495E;}   
+.Silver .pricing-col ul li.pricing-details small{color: rgba(0,0,0,.5);}      
+.Silver .pricing-col a.signup-btn{color:#34495E; border-color: #34495E}
+.Silver .pricing-col a:hover.signup-btn{background: #34495E; color:#ECF0F1}
+
+
+/*--CONCRETE BLUE--*/
+
+.Concrete .pricing-col ul li.title, .Concrete .pricing-col li ul{background:#7F8C8D; color: #fff;}
+.Concrete .pricing-col ul li.pricing-details{background:#95A5A6; color: #fff;} 
+.Concrete .pricing-col ul li.pricing-details small{color: rgba(255,255,255,.5);}        
+.Concrete .pricing-col a.signup-btn{color:#fff; border-color: #fff}
+.Concrete .pricing-col a:hover.signup-btn{background: #fff; color:#95A5A6}
+
+
+/*==============================================================
+
+  ================ RESPONSIVE ==================================
+
+  ==============================================================*/
+
+/* Large desktop */
+@media (min-width: 1200px) { 
+.Column4 .pricing-col {width: 25%}
+ }
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+	.Column4 .pricing-col {width: 50%}
+ }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+	.Column4 .pricing-col {width: 50%}
+	.Column3 .pricing-col {width: 100%}
+	.Column2 .pricing-col {width: 50%}
+ }
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+	.Column4 .pricing-col {width: 100%}
+	.Column2 .pricing-col {width: 100%}
+
+ }

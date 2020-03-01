@@ -1,0 +1,4 @@
+#KPJavaWebAppConfigFile : Settings
+
+URL	http://kpmvcwebapis.com
+API	/api/Persons/
