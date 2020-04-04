@@ -1,17 +1,28 @@
 package com.kpjavapackage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.net.HttpURLConnection;
 //KP : Additional Libraries
 import java.net.URL;
  
+//KP : Google JSON - gson Libraries
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 
 /**
  * @author  Kailash Pasumarthy
@@ -27,6 +38,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private String outFilePath = new String("C:/Users/admin/eclipse-workspace/KPJavaWebApp/src/com/kpjavapackage/KPJavaWebAppDebug.txt");
 	private Config config = new Config();
 	private MySQLJDBConnection mysqlCon = new MySQLJDBConnection();
+	private String kpMVCWebAPIsURL = new String();
 	
 	
     /**
@@ -62,9 +74,10 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doGet()...\n";
 		System.out.println(outPrintLn);
 		//System.out.print(outPrintLn);
-		//mysqlCon.TestMySQLJDBConnection();
-		//mysqlCon.Select();
-		String rsString = mysqlCon.SelectWorldCities();
+		//mysqlCon.TestMySQLJDBConnection();				//KP : WORKING
+		//mysqlCon.Select();								//KP : WORKING
+		//String rsString = mysqlCon.SelectWorldCities();	//KP : WORKING
+		String rsString = GetKPMVCWebAPIsPerson();
 		
 		////KP : Append the HttpServletResponse response
 		//response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n" + outPrintLn);
@@ -86,69 +99,143 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		
 	}
 
-
-	/*
-	protected void justConnect(javax.servlet.http.HttpServletResponse
-			response) throws java.io.IOException
-			{
-			response.setContentType("text/plain");
-			javax.servlet.ServletOutputStream out = response.getOutputStream();
-
-			System.out.println("Creating https connection ...");
-			com.ibm.net.ssl.internal.www.protocol.https.HttpsURLConnection urlc
-			= null;
-			java.io.BufferedReader reader = null;
-
-			try
-			{
-			java.net.URL url = new java.net.URL(urlString);
-
-			Object obj = url.openConnection();
-			System.out.println("Object created:" + obj.toString());
-			urlc =
-			(com.ibm.net.ssl.internal.www.protocol.https.HttpsURLConnection) obj;
-
-			System.out.println("Https connection created.");
-
-			out.println("THE HEADERS");
-			out.println("-----------");
-
-			reader = new java.io.BufferedReader(new
-			java.io.InputStreamReader(urlc.getInputStream()));
-
-			String line;
-			out.println("THE CONTENT");
-			out.println("-----------");
-
-			while((line = reader.readLine()) != null)
-			out.println(line);
-
-			}
-			catch(ClassCastException ce)
-			{
-			ce.printStackTrace(System.out);
-			}
-			catch(Exception e)
-			{
-			System.getProperties();
-			System.out.println("Java classpath: " +
-			System.getProperty("java.class.path"));
-			System.out.println("Java home: " + System.getProperty("java.home"));
-			e.printStackTrace(System.out);
-			}
-			finally
-			{
-			try
-			{
-			if(reader != null)
-			reader.close();
-			}
-			catch(java.io.IOException ioe){}
-			}
-			}
-
-			}
+	
+	/**
+	 * KP : Get KPMVCWebAPIs URL  : "http://kpmvcwebapis.com/api/Persons/2"
+	 *   																
 	 */
+	private String GetKPMVCWebAPIsPerson() throws IOException {
+			
+			//KP : Hard-Coded Item URL for Debug Purposes
+			kpMVCWebAPIsURL = "http://kpmvcwebapis.com/api/Persons/27"; 
+			
+			URL url = new URL(kpMVCWebAPIsURL);
+		    String result = "";
+		    //String response = "";
+			
+			//Print Debug to the Console
+			outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering GetKPMVCWebAPIsPerson.doGet()...\n";
+			System.out.print(outPrintLn);
+			System.out.println(outPrintLn);
+			
+			try {
+					HttpURLConnection con = (HttpURLConnection) url.openConnection();
+					con.setRequestMethod("GET");
+					con.setRequestProperty("Accept", "text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8");
+					con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+					con.setRequestProperty("User-Agent", "Mozilla /5.0 (Compatible MSIE 9.0;Windows NT 6.1;WOW64; Trident/5.0)");
+					
+					int responseCode = con.getResponseCode();
+					System.out.println(outPrintLn);
+					//if (responseCode == HttpURLConnection.HTTP_OK) { // success
+						BufferedReader in = new BufferedReader(new InputStreamReader(
+								con.getInputStream()));
+						String inputLine;
+						StringBuffer response = new StringBuffer();
+			
+						while ((inputLine = in.readLine()) != null) {
+							response.append(inputLine);
+						}
+						in.close();
+			
+						// print result
+						System.out.println(response.toString());
+						result = response.toString();
+						outPrintLn =  outPrintLn + "\n GetKPMVCWebAPIsPerson : \n" + result;		
+						System.out.print(outPrintLn);
+						System.out.println(outPrintLn);
+						
+					//} else {
+						outPrintLn = outPrintLn +"KP : Leaving Servlet2CallKPWebAPIs()... \n" + "GetKPMVCWebAPIsPerson NOT WORKING:: " + responseCode + " \n";
+						outPrintLn = outPrintLn + result + " \n" ;
+						System.out.print(outPrintLn);
+						System.out.println(outPrintLn);
 
+					//}
+			    } 
+			catch (Exception e) {
+		        e.printStackTrace();
+		        
+		        outPrintLn = e.getMessage();
+				System.out.print(outPrintLn);
+				System.out.println(outPrintLn);
+		    }		
+
+			//Write FileOutputStream to Debug File
+			//FilesWrite2Append(outPrintLn);
+			
+			return result;
+		}
+		
+	
+	/**
+	 * KP : GetKPMVCWebAPIsPersonOnHTTP() KPMVCWebAPIs URL  : "http://kpmvcwebapis.com/api/Persons/2" : KP ; WORKING
+	 *   																
+	 */
+	private String GetKPMVCWebAPIsPersonOnHTTP() throws IOException {
+			
+			//KP : Hard-Coded Item URL for Debug Purposes
+			kpMVCWebAPIsURL = "http://kpmvcwebapis.com/api/Persons/27"; 
+			
+			URL url = new URL(kpMVCWebAPIsURL);
+		    String result = "";
+		    //String response = "";
+			
+			//Print Debug to the Console
+			outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering GetKPMVCWebAPIsPerson.doGet()...\n";
+			System.out.print(outPrintLn);
+			System.out.println(outPrintLn);
+			
+			try {
+					HttpURLConnection con = (HttpURLConnection) url.openConnection();
+					con.setRequestMethod("GET");
+					con.setRequestProperty("Accept", "text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8");
+					con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+					con.setRequestProperty("User-Agent", "Mozilla /5.0 (Compatible MSIE 9.0;Windows NT 6.1;WOW64; Trident/5.0)");
+					
+					int responseCode = con.getResponseCode();
+					System.out.println(outPrintLn);
+					//if (responseCode == HttpURLConnection.HTTP_OK) { // success
+						BufferedReader in = new BufferedReader(new InputStreamReader(
+								con.getInputStream()));
+						String inputLine;
+						StringBuffer response = new StringBuffer();
+			
+						while ((inputLine = in.readLine()) != null) {
+							response.append(inputLine);
+						}
+						in.close();
+			
+						// print result
+						System.out.println(response.toString());
+						result = response.toString();
+						outPrintLn =  outPrintLn + "\n GetKPMVCWebAPIsPerson : \n" + result;		
+						System.out.print(outPrintLn);
+						System.out.println(outPrintLn);
+						
+					//} else {
+						outPrintLn = outPrintLn +"KP : Leaving Servlet2CallKPWebAPIs()... \n" + "GetKPMVCWebAPIsPerson NOT WORKING:: " + responseCode + " \n";
+						outPrintLn = outPrintLn + result + " \n" ;
+						System.out.print(outPrintLn);
+						System.out.println(outPrintLn);
+
+					//}
+			    } 
+			catch (Exception e) {
+		        e.printStackTrace();
+		        
+		        outPrintLn = e.getMessage();
+				System.out.print(outPrintLn);
+				System.out.println(outPrintLn);
+		    }		
+
+			//Write FileOutputStream to Debug File
+			//FilesWrite2Append(outPrintLn);
+			
+			return result;
+		}
+		
+	
+	
 
 }

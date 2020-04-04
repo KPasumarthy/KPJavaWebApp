@@ -12,8 +12,8 @@ public class MySQLJDBConnection {
 	//KP : Class Level Variables
 	private static String url  = "jdbc:mysql://localhost/";
 	private static String database = "world";
-	private static String user = "user";
-	private static String password = "password";
+	private static String user = "svcaccount";				///"user";
+	private static String password = "(svcP@33word)";		///"password";
 	private static Connection conn = null;
 	private static Properties connProps = new Properties();
     
