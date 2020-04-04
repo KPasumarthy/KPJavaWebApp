@@ -6,8 +6,22 @@
 $(document).ready(function() {
 	//alert("KP : jsCall2ServletKPWebAPIs.js : '$(document).ready(function(){...})'");
 	//callKPWebAPIs();			//KP : WORKING
-	callServlet4KPWebAPIs();	
+	//callServlet2PostKPWebAPI()s	
+	callServlet4KPWebAPIs();
+	//callServlet2GetKPWebAPIs();	
 });
+
+
+function callServlet2GetKPWebAPIs() {
+
+	alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2GetKPWebAPIs() : " );
+
+	$.get('Servlet2CallKPWebAPIs', function(data, status, something) {
+		//alert(status);
+		alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
+		displayKPWebAPIsData(data);
+	});
+}
 
 
 function callServlet4KPWebAPIs() {
@@ -22,6 +36,21 @@ function callServlet4KPWebAPIs() {
 		displayKPWebAPIsData(data);
 	});
 }
+
+
+function callServlet2PostKPWebAPIs() {
+	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2PostKPWebAPIs() ");
+	alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2PostKPWebAPIs() : " );
+
+	$.post('Servlet2CallKPWebAPIs', {
+
+	}, function(data, status) {
+		//alert(status);
+		alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
+		displayKPWebAPIsData(data);
+	});
+}
+
 
 /**
  * @param data

@@ -163,8 +163,8 @@ public class MySQLJDBConnection {
 	
 		//Create the JDBC Connection
 		String url  = "jdbc:mysql://localhost/world?";	//KP : World DB exists on MySQL
-		String user = "user=username";
-		String password = "password=password";
+		String user = "user=svcaccount";
+		String password = "password=(svcP@33word)";
 		
 		//Retrieving data using SQL Query
 		String sql = new String("select * From world.city");

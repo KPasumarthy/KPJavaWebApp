@@ -82,7 +82,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		String outPrintLn = "";
 		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doPost()...\n";
 		System.out.println(outPrintLn);
-		//System.out.print(outPrintLn);
+		System.out.print(outPrintLn);
 		
 	}
 

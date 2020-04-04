@@ -3,3 +3,14 @@
 
 #KP : Ignore Files & Folders
 /BackUp
+/target/
+
+#KP : Ignore MySQL JDBC Connection Files
+/src/com/kpjavapackage/JDBCExample.java
+/src/com/kpjavapackage/MySQLJDBConnection.java
+ src/com/kpjavapackage/KPJavaWebAppDebug.txt
+ src/com/kpjavapackage/MySQLJDBConnection.java
+ src/com/kpjavapackage/Servlet2CallKPWebAPIs.java
+ target/classes/com/kpjavapackage/KPJavaWebAppDebug.txt
+ target/classes/com/kpjavapackage/MySQLJDBConnection.class
+ 
