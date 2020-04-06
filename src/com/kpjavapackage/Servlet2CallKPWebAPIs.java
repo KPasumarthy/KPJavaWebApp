@@ -13,15 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.net.HttpURLConnection;
+
 //KP : Additional Libraries
 import java.net.URL;
+import java.net.HttpURLConnection;
+import sun.net.www.protocol.https.*;
  
 //KP : Google JSON - gson Libraries
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 
 
 /**
@@ -39,6 +42,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private Config config = new Config();
 	private MySQLJDBConnection mysqlCon = new MySQLJDBConnection();
 	private String kpMVCWebAPIsURL = new String();
+	private ImportCACert cacert = null;
 	
 	
     /**
@@ -53,7 +57,8 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		try {
 			config.FilesBufferWrite2Append();
 			//mysqlCon.TestMySQLJDBConnection();
-			
+			cacert = new ImportCACert();
+		
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -98,13 +103,105 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		System.out.print(outPrintLn);
 		
 	}
-
+	
 	
 	/**
 	 * KP : Get KPMVCWebAPIs URL  : "http://kpmvcwebapis.com/api/Persons/2"
 	 *   																
 	 */
 	private String GetKPMVCWebAPIsPerson() throws IOException {
+			
+		
+	
+			//KP : Hard-Coded Item URL for Debug Purposes
+			//kpMVCWebAPIsURL = "http://kpmvcwebapis.com/api/Persons/27"; 
+			//kpMVCWebAPIsURL = "http://www.google.com";
+			kpMVCWebAPIsURL  = "https://www.w3schools.com/angular/tryit.asp?filename=try_ng_services";
+			//kpMVCWebAPIsURL = "https://kpmvcwebapis.com/api/Persons/27";
+			
+			//URL url = new URL(kpMVCWebAPIsURL);
+			@SuppressWarnings("restriction")
+			URL url = new URL(null, kpMVCWebAPIsURL, new sun.net.www.protocol.https.Handler());
+		    String result = "";
+		    //String response = "";
+		    	    			
+			//Print Debug to the Console
+			outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering GetKPMVCWebAPIsPerson.doGet()...\n";
+			System.out.print(outPrintLn);
+			System.out.println(outPrintLn);
+			
+			try {
+				
+					//Import CA Certificates
+					//cacert.LetsImport();
+				
+					//HttpURLConnection con = (HttpURLConnection) url.openConnection();
+					//HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+					//SSLContext sc = SSLContext.getInstance("TLSv1.2"); 
+					//sc.init(null, null, null);
+					//con.setSSLSocketFactory(sc.getSocketFactory());	
+					
+					HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+					SSLContext sc = SSLContext.getInstance("TLSv1.2"); 
+					sc.init(null, null, new java.security.SecureRandom());
+					con.setSSLSocketFactory(sc.getSocketFactory());
+				
+					con.setRequestMethod("GET");
+					con.setRequestProperty("Accept", "application/json");
+					//con.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+					//con.setRequestProperty("User-Agent", "Mozilla /5.0 (Compatible MSIE 9.0;Windows NT 6.1;WOW64; Trident/5.0)");
+															
+					int responseCode = con.getResponseCode();
+					System.out.println(outPrintLn);
+					if (responseCode == HttpURLConnection.HTTP_OK) { // success
+						BufferedReader in = new BufferedReader(new InputStreamReader(
+								con.getInputStream()));
+						String inputLine;
+						StringBuffer response = new StringBuffer();
+			
+						while ((inputLine = in.readLine()) != null) {
+							response.append(inputLine);
+						}
+						in.close();
+			
+						// print result
+						System.out.println(response.toString());
+						result = response.toString();
+						outPrintLn =  outPrintLn + "\n GetKPMVCWebAPIsPerson : \n" + result;		
+						System.out.print(outPrintLn);
+						System.out.println(outPrintLn);
+						
+					} else {
+						outPrintLn = outPrintLn +"KP : Leaving Servlet2CallKPWebAPIs()... \n" + "GetKPMVCWebAPIsPerson NOT WORKING:: " + responseCode + " \n";
+						outPrintLn = outPrintLn + result + " \n" ;
+						System.out.print(outPrintLn);
+						System.out.println(outPrintLn);
+
+					}
+			    } 
+			catch (Exception e) {
+		        e.printStackTrace();
+		        
+		        outPrintLn = e.getMessage();
+		        
+				System.out.print(outPrintLn);
+				System.out.println(outPrintLn);
+				
+				return result + "\n" + outPrintLn;
+		    }		
+
+			//Write FileOutputStream to Debug File
+			//FilesWrite2Append(outPrintLn);
+			
+			return result;
+		}
+			
+	
+	/**
+	 * KP : Get KPMVCWebAPIs URL  : "http://kpmvcwebapis.com/api/Persons/2"
+	 *   																
+	 */
+	private String GetKPMVCWebAPIsPersonOK() throws IOException {
 			
 			//KP : Hard-Coded Item URL for Debug Purposes
 			kpMVCWebAPIsURL = "http://kpmvcwebapis.com/api/Persons/27"; 
