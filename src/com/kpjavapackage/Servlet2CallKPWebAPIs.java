@@ -1,9 +1,13 @@
 package com.kpjavapackage;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.*;
+
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -16,15 +20,19 @@ import javax.servlet.http.HttpServletResponse;
 
 //KP : Additional Libraries
 import java.net.URL;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
 import java.net.HttpURLConnection;
 import sun.net.www.protocol.https.*;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
  
 //KP : Google JSON - gson Libraries
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 
 
 /**
@@ -37,8 +45,8 @@ import com.google.gson.JsonObject;
 public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//KP : Debug Print on Console & Output File
-	private String outPrintLn = "KP : KPJavaWebApp Config Code : Entering Config()...\n";
-	private String outFilePath = new String("C:/Users/admin/eclipse-workspace/KPJavaWebApp/src/com/kpjavapackage/KPJavaWebAppDebug.txt");
+	private static String outPrintLn = "KP : KPJavaWebApp Config Code : Entering Config()...\n";
+	private static String outFilePath = new String("C:/Users/admin/eclipse-workspace/KPJavaWebApp/src/com/kpjavapackage/KPJavaWebAppDebug.txt");
 	private Config config = new Config();
 	private MySQLJDBConnection mysqlCon = new MySQLJDBConnection();
 	private String kpMVCWebAPIsURL = new String();
@@ -73,6 +81,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		
 		////KP : Servlet URL : http://localhost/KPJavaWebApp/index.html
 		PrintWriter out = response.getWriter();
 		String outPrintLn = "";
@@ -87,6 +96,24 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		////KP : Append the HttpServletResponse response
 		//response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n" + outPrintLn);
 		response.getWriter().append("KP : Served at: ").append(request.getContextPath()).append("\n" + outPrintLn).append("\n" + rsString);
+		
+		
+
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+		
+		
 	}
 
 	/**
@@ -101,6 +128,21 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doPost()...\n";
 		System.out.println(outPrintLn);
 		System.out.print(outPrintLn);
+		
+		
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
 		
 	}
 	
@@ -134,6 +176,44 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 				
 					//Import CA Certificates
 					//cacert.LetsImport();
+				
+			        //String certfile = "yourcert.cer"; /*your cert path*/
+			        //java.io.FileInputStream is = new java.io.FileInputStream("yourKeyStore.keystore");
+			        String certfile = "C:\\Program Files\\Java\\jdk-13.0.2\\KPSitaRamaCert.cer"; /*your cert path*/
+			        //   java.io.FileInputStream is = new java.io.FileInputStream("KPSitaRamaCertKeyStore");
+			
+			        KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+			        //keystore.load(is, "KPSitaRamaCertKeyStore".toCharArray());
+			
+			        String alias = "KPSitaRamaCert";
+			        char[] password = "SitaRama".toCharArray();
+			
+			        //////
+			        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+			        InputStream certstream = fullStream (certfile);
+			        Certificate certs =  cf.generateCertificate(certstream);
+			
+			        ///
+			        //java.io.File keystoreFile = new java.io.File("yourKeyStorePass.keystore");
+			        // Load the keystore contents
+			        //java.io.FileInputStream in = new java.io.FileInputStream(keystoreFile);
+			        //keystore.load(in, password);
+			        //in.close();
+			
+			        // Add the certificate
+			        //keystore.setCertificateEntry(alias, certs);
+			
+			        // Save the new keystore contents
+			        //java.io.FileOutputStream out = new java.io.FileOutputStream(keystoreFile);
+			        //keystore.store(out, password);
+			        //out.close();
+			        
+					//Print Debug to the Console
+					outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering ImportCACert.LetsImport()...\n";
+					System.out.print(outPrintLn);
+					System.out.println(outPrintLn);
+				
+				
 				
 					//HttpURLConnection con = (HttpURLConnection) url.openConnection();
 					//HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
@@ -196,6 +276,18 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 			return result;
 		}
 			
+	/**
+	 * KP : FullStream to read the cert files
+	 *   																
+	 */
+    private static InputStream fullStream ( String fname ) throws IOException {
+    	java.io.FileInputStream fis = new java.io.FileInputStream(fname);
+    	java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        byte[] bytes = new byte[dis.available()];
+        dis.readFully(bytes);
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+        return bais;
+    }
 	
 	/**
 	 * KP : Get KPMVCWebAPIs URL  : "http://kpmvcwebapis.com/api/Persons/2"
@@ -333,6 +425,4 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		}
 		
 	
-	
-
 }
