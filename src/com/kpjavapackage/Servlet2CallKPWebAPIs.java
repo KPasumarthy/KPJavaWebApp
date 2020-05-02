@@ -23,6 +23,7 @@ import java.net.URL;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
+import java.sql.ResultSet;
 import java.net.HttpURLConnection;
 import sun.net.www.protocol.https.*;
 import java.security.KeyStore;
@@ -48,7 +49,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private static String outPrintLn = "KP : KPJavaWebApp Config Code : Entering Config()...\n";
 	private static String outFilePath = new String("C:/Users/admin/eclipse-workspace/KPJavaWebApp/src/com/kpjavapackage/KPJavaWebAppDebug.txt");
 	private Config config = new Config();
-	private MySQLJDBConnection mysqlCon = new MySQLJDBConnection();
+	private OracleJDBConnection oraJDBCon = new OracleJDBConnection();
 	private String kpMVCWebAPIsURL = new String();
 	private ImportCACert cacert = null;
 	
@@ -80,25 +81,120 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		
+				
 		////KP : Servlet URL : http://localhost/KPJavaWebApp/index.html
 		PrintWriter out = response.getWriter();
 		String outPrintLn = "";
 		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doGet()...\n";
 		System.out.println(outPrintLn);
-		//System.out.print(outPrintLn);
-		//mysqlCon.TestMySQLJDBConnection();				//KP : WORKING
-		//mysqlCon.Select();								//KP : WORKING
-		//String rsString = mysqlCon.SelectWorldCities();	//KP : WORKING
-		String rsString = GetKPMVCWebAPIsPerson();
-		
-		////KP : Append the HttpServletResponse response
-		//response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n" + outPrintLn);
-		response.getWriter().append("KP : Served at: ").append(request.getContextPath()).append("\n" + outPrintLn).append("\n" + rsString);
-		
-		
 
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+		
+		//KP : Establish Oracle JDBConnection
+		String rsString = oraJDBCon.Select();
+		
+		//KP : Send Response to the Servlet RequestDispatcher 
+		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		//response.getWriter().append(rsString);   			
+
+		////KP : Establish Oracle JDBConnection
+		ResultSet resultSet = oraJDBCon.SelectResultSet();
+		//JSONArray jsonArrETSUsers = oraJDBCon.SelectETSUsers();
+		//String rsString = jsonArrETSUsers.toString();
+		//ArrayList<ETSUser> jsonArrETSUsers = oraJDBCon.SelectETSUsers();
+		//String rsString = jsonArrETSUsers.toString();
+		
+		
+		String strTable = oraJDBCon.Select2GetHTMLTable();
+		
+		////KP : Send Response to the Servlet RequestDispatcher 
+		response.setContentType("text/html");  
+		//PrintWriter out = response.getWriter();  
+		response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		request.setAttribute("message", "Hi Sri Rama Chandra");
+	    request.setAttribute("rs", rsString);
+	    request.setAttribute("strTable", strTable);
+	    response.getWriter().append(request.getContextPath()).append("\n" + strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+
+		
+	}
+
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet102(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("KP : Served at: ").append(request.getContextPath());
+		System.out.println("KP : HttpServlet#doGet ");
+		
+		
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+		
+		//KP : Establish Oracle JDBConnection
+		String rsString = oraJDBCon.Select();
+		
+		//KP : Send Response to the Servlet RequestDispatcher 
+		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		//response.getWriter().append(rsString);   			
+
+		////KP : Establish Oracle JDBConnection
+		ResultSet resultSet = oraJDBCon.SelectResultSet();
+		//JSONArray jsonArrETSUsers = oraJDBCon.SelectETSUsers();
+		//String rsString = jsonArrETSUsers.toString();
+		//ArrayList<ETSUser> jsonArrETSUsers = oraJDBCon.SelectETSUsers();
+		//String rsString = jsonArrETSUsers.toString();
+		
+		
+		String strTable = oraJDBCon.Select2GetHTMLTable();
+		
+		////KP : Send Response to the Servlet RequestDispatcher 
+		response.setContentType("text/html");  
+		PrintWriter out = response.getWriter();  
+		response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		request.setAttribute("message", "Hi Sri Rama Chandra");
+	    request.setAttribute("rs", rsString);
+	    request.setAttribute("strTable", strTable);
+	    response.getWriter().append(request.getContextPath()).append("\n" + strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+		
+	}
+	
+		
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet101(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("KP : Served at: ").append(request.getContextPath());
+		System.out.println("KP : HttpServlet#doGet ");
+		
+		
 		//KP : Print all do Post All Header Names
 		Enumeration<String> headerNames = request.getHeaderNames();
 		while(headerNames.hasMoreElements()) {
@@ -115,11 +211,109 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		
 		
 	}
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost102(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		System.out.println("KP : HttpServlet#doPost ");
+		
+		
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+
+		//KP : Establish Oracle JDBConnection
+		//String rsString = oraJDBCon.Select();
+		String strTable = oraJDBCon.Select2GetHTMLTable();
+		
+		//response.setContentType("text/html");  
+		//PrintWriter out = response.getWriter();  
+		//response.getWriter().append(request.getContextPath()).append(rsString);
+		//response.sendRedirect("response.jsp");
+		
+
+		//ResultSet rs = (ResultSet) oraJDBCon.Update();
+		response.setContentType("text/html");  
+		PrintWriter out = response.getWriter();  
+		//response.getWriter().append(request.getContextPath()).append(rsString);
+		//request.setAttribute("message", "Hi Sri Rama Chandra");
+	    //request.setAttribute("rs", rsString);
+		//response.getWriter().append(request.getContextPath()).append(strTable);
+		request.setAttribute("strTable", strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+
+	}
+
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//doGet(request, response);
+		System.out.println("KP : HttpServlet#doPost ");
+		
+		
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+
+		//KP : Establish Oracle JDBConnection
+		//String rsString = oraJDBCon.Select();
+		String strTable = oraJDBCon.Select2GetHTMLTable();
+		
+		//response.setContentType("text/html");  
+		//PrintWriter out = response.getWriter();  
+		//response.getWriter().append(request.getContextPath()).append(rsString);
+		//response.sendRedirect("response.jsp");
+		
+
+		//ResultSet rs = (ResultSet) oraJDBCon.Update();
+		response.setContentType("text/html");  
+		PrintWriter out = response.getWriter();  
+		//response.getWriter().append(request.getContextPath()).append(rsString);
+		//request.setAttribute("message", "Hi Sri Rama Chandra");
+	    //request.setAttribute("rs", rsString);
+		response.getWriter().append(request.getContextPath()).append(strTable);
+		request.setAttribute("strTable", strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+
+	}
+
+	
+	
+	
+	
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost101(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		////KP : Servlet URL : http://localhost/KPJavaWebApp/index.html
@@ -144,6 +338,62 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
 			}
 		
+	}
+	
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		System.out.println("KP : HttpServlet#doUpdate ");
+		
+		
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		String nbkId = "";
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 if ( paramName == "bofaNBKID"  ) {
+				 nbkId = request.getParameter(paramName);
+			 }             
+				 
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+		
+		//KP : Establish Oracle JDBConnection
+		//oraJDBCon.Update(nbkId);
+		String rsString = oraJDBCon.Update();
+		//ResultSet rs = (ResultSet) oraJDBCon.Update();
+		request.setAttribute("message", "Hi Sri Rama Chandra");
+	    request.setAttribute("rs", rsString);
+	    //request.getRequestDispatcher("response.jsp").forward(request, response);
+		
+		//String rsString = oraJDBCon.Update();
+		//Redirect Response
+		//PrintWriter out = response.getWriter();
+		//response.sendRedirect("response.jsp");
+				
+		////KP : Send Response to the Servlet RequestDispatcher : WORKING
+		//String rsString = oraJDBCon.Update();
+		//response.getWriter().append("KP : Served at: ").append(request.getContextPath()).append(rsString);
+		//response.sendRedirect("response.jsp");		
+	    
+		String strTable = oraJDBCon.Select2GetHTMLTable();
+		response.setContentType("text/html");  
+		PrintWriter out = response.getWriter();  
+		response.getWriter().append(request.getContextPath()).append(strTable);
+		request.setAttribute("strTable", strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+	    
 	}
 	
 	
@@ -423,6 +673,9 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 			
 			return result;
 		}
-		
-	
+			
 }
+
+
+
+

@@ -14,11 +14,11 @@ $(document).ready(function() {
 
 function callServlet2GetKPWebAPIs() {
 
-	alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2GetKPWebAPIs() : " );
+	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2GetKPWebAPIs() : " );
 
 	$.get('Servlet2CallKPWebAPIs', function(data, status, something) {
 		//alert(status);
-		alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
+		//alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
 		displayKPWebAPIsData(data);
 	});
 }
@@ -26,7 +26,7 @@ function callServlet2GetKPWebAPIs() {
 
 function callServlet4KPWebAPIs() {
 	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet4KPWebAPIs() ");
-	alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet4KPWebAPIs() : " );
+	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet4KPWebAPIs() : " );
 
 	$.post('Servlet2CallKPWebAPIs', {
 
@@ -58,7 +58,7 @@ function callServlet2PostKPWebAPIs() {
  */
 function displayKPWebAPIsData(data) {
 
-	alert(data); //KP : Display Item Locator Data
+	//alert(data); //KP : Display Item Locator Data
 	
 	var outputString = "";
 	outputString = outputString
