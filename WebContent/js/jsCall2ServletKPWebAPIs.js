@@ -7,8 +7,8 @@ $(document).ready(function() {
 	//alert("KP : jsCall2ServletKPWebAPIs.js : '$(document).ready(function(){...})'");
 	//callKPWebAPIs();			//KP : WORKING
 	//callServlet2PostKPWebAPI()s	
-	callServlet4KPWebAPIs();
-	//callServlet2GetKPWebAPIs();	
+	//callServlet4KPWebAPIs();
+	callServlet2GetKPWebAPIs();	
 });
 
 
