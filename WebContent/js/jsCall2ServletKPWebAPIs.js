@@ -32,7 +32,7 @@ function callServlet4KPWebAPIs() {
 
 	}, function(data, status) {
 		//alert(status);
-		alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
+		//alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
 		displayKPWebAPIsData(data);
 	});
 }

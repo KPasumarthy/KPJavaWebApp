@@ -4,7 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kailash Java Web Application : REST APIs!</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/skin.css" rel="stylesheet">
+<link href="css/pricingCol.css" rel="stylesheet">
+<!-- KP : <link rel="stylesheet" href="css/font-awesome.min.css">-->
+<link rel="stylesheet" href="css/bootstrap-grid.min.css" />
+<link href="css/StyleSheet.css" rel="stylesheet" />
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jsCall2ServletKPWebAPIs.js"></script>
+<script src="js/elementTransitions.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- KP : The content below is only a placeholder and can be replaced.-->
