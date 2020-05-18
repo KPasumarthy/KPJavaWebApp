@@ -136,7 +136,10 @@ public class MySQLJDBConnection {
 		       System.out.print(", District: " + district);
 		       System.out.println(", Population: " + population);
 		       
-		       rsString.append("ID: ").append(id).append(" Name: ").append(name).append(", CountryCode: ").append(countrycode).append(", Population: " + population + "\n");		       
+		       rsString.append("ID: " + id)
+		       			.append(", Name: " + name)
+		       			.append(", CountryCode: " + countrycode)
+		       			.append(", Population: " + population + "\n");		       
 		    }
 		    rs.close();
 		}
@@ -155,6 +158,134 @@ public class MySQLJDBConnection {
 	}
 
 				
+	/**
+	 * @author Kailash Pasumarthy
+	 * OracleJDBConnection Class : Select() 
+	 */
+	//public void Select() {	
+	public String Select2GetHTMLTable() {	
+		StringBuilder rsString = new StringBuilder();
+		StringBuilder sbHTMLTable = new StringBuilder();
+		String strHTMLTable = "";
+		try 
+		{	
+			//conn =  DriverManager.getConnection(url, connProps);
+			//CreateMySQLJDBConnection();
+			//System.out.println("KP : Oracle DriverManager.getConnection() Successful!");					
+			
+		    //Execute a query
+		    System.out.println("KP : Creating Java Oracle SQL statement...");
+		    Statement stmt = conn.createStatement();
+
+		    //String sql = "Select * From world.city";
+		    String sql = "Select * From world.city";
+		    //USERNAME, USER_ID, CREATED, COMMON, ORACLE_MAINTAINED, INHERITED, DEFAULT_COLLATION, IMPLICIT, ALL_SHARD		    
+		    
+		    strHTMLTable = "<style>table { font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;}td," +
+		                   "th {  border: 1px solid #dddddd;  text-align: left;  padding: 8px;}tr:nth-child(even)" +
+		    		       " {  background-color: #dddddd;}</style>";
+		    
+		    sbHTMLTable.append(strHTMLTable);
+		    
+		    strHTMLTable = 	"<table><tr><th>ID</th> <th>Name</th>" +  
+		    				"<th>CountryCode</th> <th>District</th>" +
+		    				"<th>Population</th> </tr>";
+		    
+		    sbHTMLTable.append(strHTMLTable);
+		    
+		    int colIndex = 1;
+		    ResultSet rs = stmt.executeQuery(sql);
+		    //Extract data from result set
+		    while(rs.next()){
+
+			       //Retrieve by column name
+			       int id  = rs.getInt("ID");
+			       String name = rs.getString("Name");
+			       String countrycode = rs.getString("CountryCode");
+			       String district = rs.getString("District");
+			       String population = rs.getString("Population");
+
+			       //Display values on console
+			       System.out.print("ID: " + id);
+			       System.out.print(", Name: " + name);
+			       System.out.print(", CountryCode: " + countrycode);
+			       System.out.print(", District: " + district);
+			       System.out.println(", Population: " + population);
+			       
+			       rsString.append("ID: " + id)
+			       			.append(", Name: " + name)
+			       			.append(", CountryCode: " + countrycode)
+			       			.append(", Population: " + population + "\n");		
+			          			          			          
+			       	//HTML Table	   
+			       	sbHTMLTable.append("<tr><td>" + id  + "</td>"  )
+			       		   .append("<td>" + name + "</td>"  	)
+			       		   .append("<td>" + countrycode + "</td>"  )
+			       		   .append("<td>" + district + "</td>"  )
+			       		   .append("<td>" + population + "</td>"  )
+			       		   .append("</tr>");
+			       		   		       		  			       		   
+			       		   
+			    }
+			    rs.close();
+			    sbHTMLTable.append("</table>");
+		}
+		catch(SQLException ex)
+		{
+			System.out.println("KP : Failed Oracle SQL Select statement!");
+			System.out.println(ex);
+			ex.printStackTrace();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+			ex.printStackTrace();
+		}
+		finally {			
+			//CloseMySQLJDBConnection();
+		}
+		
+		//return rsString.toString();
+		return sbHTMLTable.toString();
+	}
+	
+			
+	/**
+	 * @author Kailash Pasumarthy
+	 * MySQLJDBConnection Class : CloseMySQLJDBConnection();
+	 */
+	public void CloseMySQLJDBConnection() {	
+		try 
+		{	
+			////Register (or) Load MySQL JDBC Drivers
+			//DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
+			
+			////Connection Properties
+			//connProps.put("database", database);
+			//connProps.put("user", user);
+			//connProps.put("password", password);
+			
+			//MySQL DriverManager getConnection()
+			//conn =  DriverManager.getConnection(url, connProps);
+			if(conn != null) {
+				conn.close();
+				System.out.println("KP : MySQL Connection Closed Successfully!");	
+			}
+		}
+		catch(SQLException ex)
+		{
+			System.out.println("KP :  MySQL Connection Close Failed!");				
+			System.out.println(ex);
+			ex.printStackTrace();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+			ex.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * @author Kailash Pasumarthy
 	 * MySQLJDBConnection Class : TestMySQLJDBConnection() : Primitive MySQL DB Connection 

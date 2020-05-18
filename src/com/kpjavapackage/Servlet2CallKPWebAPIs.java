@@ -50,6 +50,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private static String outFilePath = new String("C:/Users/admin/eclipse-workspace/KPJavaWebApp/src/com/kpjavapackage/KPJavaWebAppDebug.txt");
 	private Config config = new Config();
 	private OracleJDBConnection oraJDBCon = new OracleJDBConnection();
+	private MySQLJDBConnection mysqlCon = new MySQLJDBConnection();
 	private String kpMVCWebAPIsURL = new String();
 	private ImportCACert cacert = null;
 	
@@ -78,7 +79,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGetORA(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 				
@@ -128,8 +129,82 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	    request.setAttribute("strTable", strTable);
 	    response.getWriter().append(request.getContextPath()).append("\n" + strTable);
 	    request.getRequestDispatcher("response.jsp").forward(request, response);
+	
+	}
+
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+				
+		////KP : Servlet URL : http://localhost/KPJavaWebApp/index.html
+		PrintWriter out = response.getWriter();
+		String outPrintLn = "";
+		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doGet()...\n";
+		System.out.println(outPrintLn);
+
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+		
+		//KP : Establish Oracle JDBConnection
+		//String rsString = mysqlCon.SelectWorldCities();
+		
+		//KP : Send Response to the Servlet RequestDispatcher 
+		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		//response.getWriter().append(rsString);   			
+
 
 		
+		String strTable = mysqlCon.Select2GetHTMLTable();
+		
+		////KP : Send Response to the Servlet RequestDispatcher 
+		response.setContentType("text/html");  
+		//PrintWriter out = response.getWriter();  
+		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		request.setAttribute("message", "Hi Sri Rama Chandra");
+	    //request.setAttribute("rs", rsString);
+	    request.setAttribute("strTable", strTable);
+	    response.getWriter().append(request.getContextPath()).append("\n" + strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+	
+	}
+	
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGetMySQL101(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		////KP : Servlet URL : http://localhost/KPJavaWebApp/index.html
+		PrintWriter out = response.getWriter();
+		String outPrintLn = "";
+		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doGet()...\n";
+		System.out.println(outPrintLn);
+		//System.out.print(outPrintLn);
+		//mysqlCon.TestMySQLJDBConnection();
+		//mysqlCon.Select();
+		//String rsString = mysqlCon.SelectWorldCities();
+		String rsString = mysqlCon.Select2GetHTMLTable();
+		
+		////KP : Append the HttpServletResponse response
+		//response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n" + outPrintLn);
+		response.getWriter().append("KP : Served at: ").append(request.getContextPath()).append("\n" + outPrintLn).append("\n" + rsString);
 	}
 
 	
@@ -305,9 +380,6 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 
 	}
 
-	
-	
-	
 	
 	
 	/**
