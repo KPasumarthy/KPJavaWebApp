@@ -23,3 +23,18 @@ Keystore provider: SUN
 Your keystore contains 93 entries
 
 
+
+2020-05-17T20:13:50.431908900	KP : KPJavaWebApp Config Code : Entering Config()...
+
+
+2020-05-18T15:51:46.793052600	KP : KPJavaWebApp Config Code : Entering Config()...
+
+
+2020-05-21T15:50:46.264126100	KP : KPJavaWebApp Config Code : Entering Config()...
+
+
+2020-05-21T16:05:04.739123	KP : KPJavaWebApp Config Code : Entering Config()...
+
+
+2020-05-21T16:11:08.446707400	KP : KPJavaWebApp Config Code : Entering Config()...
+

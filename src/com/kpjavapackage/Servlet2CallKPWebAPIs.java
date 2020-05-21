@@ -161,24 +161,15 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 			}
 		
 		//KP : Establish Oracle JDBConnection
-		//String rsString = mysqlCon.SelectWorldCities();
-		
-		//KP : Send Response to the Servlet RequestDispatcher 
-		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
-		//response.getWriter().append(rsString);   			
-
-
-		
+		String rsString = mysqlCon.SelectWorldCities();		
 		String strTable = mysqlCon.Select2GetHTMLTable();
 		
 		////KP : Send Response to the Servlet RequestDispatcher 
 		response.setContentType("text/html");  
-		//PrintWriter out = response.getWriter();  
-		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
 		request.setAttribute("message", "Hi Sri Rama Chandra");
 	    //request.setAttribute("rs", rsString);
 	    request.setAttribute("strTable", strTable);
-	    response.getWriter().append(request.getContextPath()).append("\n" + strTable);
+	    //response.getWriter().append(request.getContextPath()).append("\n" + strTable);
 	    request.getRequestDispatcher("response.jsp").forward(request, response);
 	
 	}
