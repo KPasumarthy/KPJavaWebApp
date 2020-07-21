@@ -2,8 +2,9 @@
  *	KP : jsCall2ServletKPWebAPIs.js file  
  */
 
-//index.html 
-$(document).ready(function() {
+//index.html
+//$(document).ready(function() {} ////KP : Do NOT Use $(document).ready(function() as it is iteratively calling the callServlet2GetKPWebAPIs();	
+$(document).load(function() {
 	//alert("KP : jsCall2ServletKPWebAPIs.js : '$(document).ready(function(){...})'");
 	//callKPWebAPIs();			//KP : WORKING
 	//callServlet2PostKPWebAPI()s	

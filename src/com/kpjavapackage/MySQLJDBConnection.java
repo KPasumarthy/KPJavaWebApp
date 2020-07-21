@@ -229,6 +229,10 @@ public class MySQLJDBConnection {
 			    }
 			    rs.close();
 			    sbHTMLTable.append("</table>");
+			    
+			    
+			    System.out.println(sbHTMLTable);
+			    
 		}
 		catch(SQLException ex)
 		{
