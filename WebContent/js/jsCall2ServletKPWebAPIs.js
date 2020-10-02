@@ -15,10 +15,10 @@ $(document).load(function() {
 
 function callServlet2GetKPWebAPIs() {
 
-	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2GetKPWebAPIs() : " );
+	alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2GetKPWebAPIs() : " );
 
 	$.get('Servlet2CallKPWebAPIs', function(data, status, something) {
-		//alert(status);
+		alert(status);
 		//alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
 		displayKPWebAPIsData(data);
 	});
@@ -41,7 +41,7 @@ function callServlet4KPWebAPIs() {
 
 function callServlet2PostKPWebAPIs() {
 	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2PostKPWebAPIs() ");
-	alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2PostKPWebAPIs() : " );
+	//alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2PostKPWebAPIs() : " );
 
 	$.post('Servlet2CallKPWebAPIs', {
 

@@ -19,14 +19,59 @@
 <script src="js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-	/*
+	
 	 	$(window).load(function() {
 		 	$(document).ready(function() {
-				alert("KP : Test $(window).load(function(){}) & $(document).ready(function(){}); ")	 		
+				//alert("KP : Test $(window).load(function(){}) & $(document).ready(function(){}); ")
+				callServlet2GetKPWebAPIs();	
 			});
 	 	});
-	 */
+	 
   	
+	 	function callServlet2GetKPWebAPIs() {
+
+	 		alert("KP : 'jsCall2ServletKPWebAPIs.js' : callServlet2GetKPWebAPIs() : " );
+
+	 		$.get('Servlet2CallKPWebAPIs', function(data, status, something) {
+	 			//alert(status);
+	 			//alert("Status : " + status + "\nData : " + data); //KP : Display data from KPWebAPIs 		
+	 			displayKPWebAPIsData(data);
+	 		});
+	 	} 	
+	 	
+	 	function displayKPWebAPIsData(data) {
+
+	 		//alert(data); //KP : Display Item Locator Data
+	 		
+	 		var outputString = "";
+	 		outputString = outputString
+	 				+ "<div class='container' style='margin-top:10px;'>"
+	 		outputString = outputString + "<div class='row'>" + data + "</div></div>";
+	 		
+	 		$('#contentFirst').html(outputString);
+
+	 		if ($('#contentFirst').hasClass("showClass")) {
+	 			$('#contentFirst').html(outputString);
+	 			$('#contentFirst').removeClass("showClass");
+	 			$('#contentSecond').addClass("showClass");
+	 		} else if ($('#contentSecond').hasClass("showClass")) {
+	 			$('#contentSecond').html(outputString);
+	 			$('#contentFirst').addClass("showClass");
+	 			$('#contentSecond').removeClass("showClass");
+	 		} else {
+	 			$('#contentSecond').html(outputString);
+	 			$('#contentFirst').addClass("showClass");
+	 		}
+
+	 		$(".et-wrapper").css({
+	 			"height" : "150vh"
+	 		});
+	 		$(".et-wrapper").trigger("click");
+
+	 	}
+
+	 	
+	 	
  </script>
 
 </head>
