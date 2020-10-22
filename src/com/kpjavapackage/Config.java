@@ -17,6 +17,11 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Properties;
 
+//KP : Java Logger
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 /**
@@ -35,6 +40,12 @@ public class Config {
     private FileOutputStream fos = null;
     private File file = new File(outFilePath);		//file;
  	
+	////KP : Logger
+    private static final Logger LOGGER = Logger.getLogger(Servlet2CallKPWebAPIs.class.getName());
+    //LOGGER.info("Logger Name: "+LOGGER.getName());         
+    //LOGGER.warning("Can cause ArrayIndexOutOfBoundsException");
+	
+		    
     
 	/**
 	 * Config Class Constructor
@@ -60,13 +71,16 @@ public class Config {
     		
   	  	  	//KP : java.nio.file.Files.write - NIO is buffer oriented & IO is stream oriented!]
     		String str2Write = "\n" + LocalDateTime.now().toString() + "\t" + outPrintLn + "\n";
-    		Files.write(Paths.get(outFilePath), str2Write.getBytes(), StandardOpenOption.APPEND);
+    		Files.write(Paths.get(outFilePath), str2Write.getBytes(), StandardOpenOption.APPEND);    		
+    		LOGGER.info(str2Write);
+    		LOGGER.log(Level.INFO, str2Write, Config.class.getName());
     		
     	}catch (IOException e) {
 	    	// TODO Auto-generated catch block
 	    	e.printStackTrace();		
 			System.out.print(outPrintLn);
 			System.out.println(outPrintLn);	
+			LOGGER.log(Level.SEVERE, "Exception occur", e);
     	}
     }
     

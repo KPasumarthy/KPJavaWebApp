@@ -36,6 +36,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 
+//KP : Java Logger
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  * @author  Kailash Pasumarthy
  * 			KP : Servlet implementation class Servlet2CallKPWebAPIs
@@ -54,7 +60,12 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private String kpMVCWebAPIsURL = new String();
 	private ImportCACert cacert = null;
 	
+	////KP : Logger
+    private static final Logger LOGGER = Logger.getLogger(Servlet2CallKPWebAPIs.class.getName());
+    //LOGGER.info("Logger Name: "+LOGGER.getName());         
+    //LOGGER.warning("Can cause ArrayIndexOutOfBoundsException");
 	
+		
     /**
      * Default constructor. 
      */
@@ -73,6 +84,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);
 		}
     }
 
