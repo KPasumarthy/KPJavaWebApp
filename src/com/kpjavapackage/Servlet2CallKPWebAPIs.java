@@ -57,6 +57,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	private Config config = new Config();
 	private OracleJDBConnection oraJDBCon = new OracleJDBConnection();
 	private MySQLJDBConnection mysqlCon = new MySQLJDBConnection();
+	private MSSQLJDBConnection mssqlCon = new MSSQLJDBConnection();
 	private String kpMVCWebAPIsURL = new String();
 	private ImportCACert cacert = null;
 	
@@ -78,6 +79,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		try {
 			config.FilesBufferWrite2Append();
 			//mysqlCon.TestMySQLJDBConnection();
+			//mssqlCon.TestMSSQLJDBConnection();
 			cacert = new ImportCACert();
 		
 			
@@ -88,6 +90,64 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		}
     }
 
+    
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+				
+		////KP : Servlet URL : http://localhost/KPJavaWebApp/index.html
+		PrintWriter out = response.getWriter();
+		String outPrintLn = "";
+		outPrintLn = "KP : KPJavaWebApp Servlet Code : Entering Servlet2CallKPWebAPIs.doGet()...\n";
+		System.out.println(outPrintLn);
+
+		//KP : Print all do Post All Header Names
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = headerNames.nextElement();
+		  System.out.println("KP : Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		
+		//KP : Print all do Post Parameters
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 System.out.println("KP : Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+		
+		//KP : Establish MS SQL JDBConnection
+		//this.mssqlCon.TestMSSQLJDBConnection();
+		//String rsString = this.mssqlCon.Select();		
+		//System.out.println("KP : MSSQL Connection - Select() Value - " + rsString);
+
+		
+		//KP : Send Response to the Servlet RequestDispatcher 
+		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		//response.getWriter().append(rsString);   			
+
+		////KP : Establish MSSQL JDBConnection
+		//ResultSet resultSet = mssqlCon.SelectResultSet();
+
+		
+		String strTable = mssqlCon.Select2GetHTMLTable();
+		System.out.println("KP : MSSQL Connection - Select2GetHTMLTable() - strTable : " + strTable);
+		
+		////KP : Send Response to the Servlet RequestDispatcher 
+		response.setContentType("text/html");  
+		//PrintWriter out = response.getWriter();  
+		//response.getWriter().append(request.getContextPath()).append("\n" + rsString);
+		request.setAttribute("message", "Hi Sri Rama Chandra");
+	    //request.setAttribute("rs", rsString);
+	    request.setAttribute("strTable", strTable);
+	    response.getWriter().append(request.getContextPath()).append("\n" + strTable);
+	    request.getRequestDispatcher("response.jsp").forward(request, response);
+	
+	}
+
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -148,7 +208,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGetMySQL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 				

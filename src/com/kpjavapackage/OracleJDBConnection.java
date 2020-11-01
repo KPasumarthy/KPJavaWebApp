@@ -216,7 +216,7 @@ public class OracleJDBConnection {
 		    String sql = "SELECT * FROM All_Users";
 		    //USERNAME, USER_ID, CREATED, COMMON, ORACLE_MAINTAINED, INHERITED, DEFAULT_COLLATION, IMPLICIT, ALL_SHARD		    
 		    
-		    strHTMLTable = "<style>table { font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;}td," +
+		    strHTMLTable = "<style>table { font-family: arial, sans-serif;  border-collapse: collapse;  width: 75%;}td," +
 		                   "th {  border: 1px solid #dddddd;  text-align: left;  padding: 8px;}tr:nth-child(even)" +
 		    		       " {  background-color: #dddddd;}</style>";
 		    

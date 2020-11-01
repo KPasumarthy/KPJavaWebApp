@@ -44,7 +44,7 @@
 <!-- KP : The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to Kailash Java Web Application : REST APIs!
+    Welcome to Kailash Java Web Application : EJB Servlets & REST APIs!
   </h1>
 </div>
 <div>
