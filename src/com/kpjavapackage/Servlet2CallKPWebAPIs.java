@@ -79,7 +79,7 @@ public class Servlet2CallKPWebAPIs extends HttpServlet {
 		try {
 			config.FilesBufferWrite2Append();
 			//mysqlCon.TestMySQLJDBConnection();
-			//mssqlCon.TestMSSQLJDBConnection();
+			mssqlCon.TestMSSQLJDBConnection();
 			cacert = new ImportCACert();
 		
 			
